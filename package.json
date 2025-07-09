@@ -11,6 +11,7 @@
   "dependencies": {
     "fast-simplex-noise": "^4.0.0",
     "gsap": "^3.13.0",
+    "motion": "^12.23.0",
     "next": "15.3.5",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",

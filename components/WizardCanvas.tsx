@@ -32,8 +32,8 @@ export default function WizardCanvas() {
       0.1,
       1000
     );
-    camera.position.set(0, 1, -8);
-    camera.lookAt(0, 1, 0);
+    camera.position.set(0, 0, -10);
+    camera.lookAt(0, 0, 0);
 
     // Lighting
     const ambient = new THREE.HemisphereLight(0x6060ff, 0x404040, 0.8);
