@@ -2,9 +2,8 @@
 
 import { useEffect, useRef } from "react";
 import * as THREE from "three";
-import { GLTFLoader, type GLTF } from "three/examples/jsm/loaders/GLTFLoader";
-import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
 import { makeNoise3D } from "fast-simplex-noise";
+import { GLTF, GLTFLoader } from "three/examples/jsm/Addons.js";
 
 export default function WizardCanvas() {
   const mountRef = useRef<HTMLDivElement>(null);
@@ -44,17 +43,12 @@ export default function WizardCanvas() {
     dirLight.castShadow = true;
     scene.add(dirLight);
 
-    // Controls
-    const controls = new OrbitControls(camera, renderer.domElement);
-    controls.enableDamping = true;
-    controls.dampingFactor = 0.05;
-
     // Load wizard model
     const loader = new GLTFLoader();
     loader.load(
       "/wizard.glb",
       (gltf: GLTF) => {
-        const wizard: THREE.Scene = gltf.scene;
+        const wizard: THREE.Object3D = gltf.scene;
         wizard.traverse((child) => {
           if (child instanceof THREE.Mesh) {
             child.castShadow = true;
@@ -70,8 +64,12 @@ export default function WizardCanvas() {
         scene.add(wizard);
       },
       undefined,
-      (errorEvent: ErrorEvent) => {
-        console.error("Error loading wizard.glb:", errorEvent.message);
+      (errorEvent: unknown) => {
+        if (errorEvent instanceof ErrorEvent) {
+          console.error("Error loading wizard.glb:", errorEvent.message);
+        } else {
+          console.error("Error loading wizard.glb:", errorEvent);
+        }
       }
     );
 
