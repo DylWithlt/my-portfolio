@@ -36,13 +36,13 @@ export default function HeroSection() {
     <div className="text-center max-w-xl mx-auto px-4">
       <h1
         ref={titleRef}
-        className="text-5xl md:text-6xl font-extrabold tracking-tight mb-4"
+        className="font-medieval-sharp text-9xl md:text-9xl tracking-tight mb-4"
       >
         DylWithlt
       </h1>
       <p
         ref={monikerRef}
-        className="text-lg md:text-xl italic text-gray-300 mb-6"
+        className="font-caudex text-lg md:text-xl italic text-gray-300 mb-6"
       >
         Full‑Stack Wizard & Game Developer
       </p>
@@ -52,8 +52,7 @@ export default function HeroSection() {
       >
         {visits !== null ? (
           <>
-            <span className="font-mono">{visits.toLocaleString()}</span>{" "}
-            contributions
+            <span className="font-cardo">{visits.toLocaleString()}</span> visits
           </>
         ) : (
           "Loading..."

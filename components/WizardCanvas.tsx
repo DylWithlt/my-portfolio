@@ -32,7 +32,8 @@ export default function WizardCanvas() {
       0.1,
       1000
     );
-    camera.position.set(0, 1, -6);
+    camera.position.set(0, 1, -8);
+    camera.lookAt(0, 1, 0);
 
     // Lighting
     const ambient = new THREE.HemisphereLight(0x6060ff, 0x404040, 0.8);
@@ -42,6 +43,15 @@ export default function WizardCanvas() {
     dirLight.position.set(5, 10, 7);
     dirLight.castShadow = true;
     scene.add(dirLight);
+
+    const pointLight = new THREE.PointLight(
+      0x3399ff,
+      Math.abs(camera.position.z) * 4,
+      500
+    );
+    pointLight.decay = 0.5; // use lower decay for slower falloff
+    pointLight.position.copy(camera.position);
+    scene.add(pointLight);
 
     // Load wizard model
     const loader = new GLTFLoader();
@@ -82,7 +92,7 @@ export default function WizardCanvas() {
     const animateLoop = () => {
       requestAnimationFrame(animateLoop);
       const delta = clock.getDelta();
-      controls.update();
+      // controls.update();
       animate(delta);
       renderer.render(scene, camera);
     };
@@ -99,7 +109,7 @@ export default function WizardCanvas() {
     // Cleanup
     return () => {
       cleanup();
-      controls.dispose();
+      // controls.dispose();
       window.removeEventListener("resize", handleResize);
       renderer.dispose();
       while (mount.firstChild) {
@@ -248,7 +258,7 @@ function createMagicParticleSystem(
       const frustumWidth =
         2 *
         Math.tan((THREE.MathUtils.DEG2RAD * camera.fov) / 2) *
-        6 *
+        Math.abs(camera.position.z) *
         camera.aspect;
 
       const targetPos = new THREE.Vector3(

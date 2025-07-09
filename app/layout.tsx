@@ -1,5 +1,11 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import {
+  Cardo,
+  Caudex,
+  Geist,
+  Geist_Mono,
+  MedievalSharp,
+} from "next/font/google";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -10,6 +16,23 @@ const geistSans = Geist({
 const geistMono = Geist_Mono({
   variable: "--font-geist-mono",
   subsets: ["latin"],
+});
+
+const medieval = MedievalSharp({
+  weight: "400",
+  subsets: ["latin"],
+  variable: "--font-medieval",
+  display: "swap",
+});
+
+const cardo = Cardo({
+  weight: "700",
+  variable: "--font-cardo",
+});
+
+const caudex = Caudex({
+  weight: "400",
+  variable: "--font-caudex",
 });
 
 export const metadata: Metadata = {
@@ -25,7 +48,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`${geistSans.variable} ${geistMono.variable} ${medieval.variable} ${cardo.variable} ${caudex.variable} antialiased`}
       >
         {children}
       </body>
