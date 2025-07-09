@@ -278,9 +278,9 @@ function createMagicParticleSystem(
     geometry.attributes.size.needsUpdate = true;
   };
 
-  const resizeHandler = () => {
-    /* Handled in main component */
-  };
+  // const resizeHandler = () => {
+  //   /* Handled in main component */
+  // };
 
   const cleanup = () => {
     scene.remove(particles);
@@ -289,5 +289,5 @@ function createMagicParticleSystem(
     sprite.dispose();
   };
 
-  return { animate, resizeHandler, cleanup };
+  return { animate, cleanup };
 }
