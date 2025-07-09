@@ -76,7 +76,7 @@ export default function WizardCanvas() {
     );
 
     // Particle system
-    const particleSystem = createMagicParticleSystem(scene, 500);
+    const particleSystem = createMagicParticleSystem(scene, 500, camera);
     const { animate, resizeHandler, cleanup } = particleSystem;
 
     // Animation loop
@@ -113,7 +113,11 @@ export default function WizardCanvas() {
   return <div ref={mountRef} className="fixed inset-0" />;
 }
 
-function createMagicParticleSystem(scene: THREE.Scene, particleCount: number) {
+function createMagicParticleSystem(
+  scene: THREE.Scene,
+  particleCount: number,
+  camera: THREE.PerspectiveCamera
+) {
   // Geometry setup
   const geometry = new THREE.BufferGeometry();
   const positions = new Float32Array(particleCount * 3);
@@ -243,8 +247,14 @@ function createMagicParticleSystem(scene: THREE.Scene, particleCount: number) {
       const noiseValue = noiseLowFreq * 0.7 + noiseMidFreq * 0.3;
       const yOffset = noiseValue * noiseScale;
 
+      const frustumWidth =
+        2 *
+        Math.tan((THREE.MathUtils.DEG2RAD * camera.fov) / 2) *
+        6 *
+        camera.aspect;
+
       const targetPos = new THREE.Vector3(
-        Math.cos(angle) * orbitRadius,
+        (Math.cos(angle) * frustumWidth) / 2,
         Math.sin(time * 1.2 + phase) + yOffset * 5,
         Math.sin(angle) * orbitRadius
       );
