@@ -54,7 +54,7 @@ export default function WizardCanvas() {
     loader.load(
       "/wizard.glb",
       (gltf: GLTF) => {
-        const wizard = gltf.scene;
+        const wizard: THREE.Scene = gltf.scene;
         wizard.traverse((child) => {
           if (child instanceof THREE.Mesh) {
             child.castShadow = true;
@@ -70,14 +70,14 @@ export default function WizardCanvas() {
         scene.add(wizard);
       },
       undefined,
-      (errorEvent) => {
+      (errorEvent: ErrorEvent) => {
         console.error("Error loading wizard.glb:", errorEvent.message);
       }
     );
 
     // Particle system
     const particleSystem = createMagicParticleSystem(scene, 500, camera);
-    const { animate, resizeHandler, cleanup } = particleSystem;
+    const { animate, cleanup } = particleSystem;
 
     // Animation loop
     const clock = new THREE.Clock();
